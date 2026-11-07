@@ -55,15 +55,37 @@
       f.addEventListener('submit', function () { track('quickstart', { service: f.service.value }); });
     });
 
+    // Envoi d'un formulaire à envoi.php ; réponse JSON { ok, error }
+    var SEND_FAIL = "L'envoi n'a pas abouti. Réessayez ou appelez-nous au 07 56 88 10 72.";
+    function send(f) {
+      return fetch(f.getAttribute('action') || 'envoi.php', { method: 'POST', body: new FormData(f), headers: { 'X-Requested-With': 'fetch' } })
+        .then(function (r) { return r.json().catch(function () { return { ok: false }; }); })
+        .catch(function () { return { ok: false }; });
+    }
+    function busy(btn, on) {
+      if (!btn) return;
+      if (on) { btn.dataset.label = btn.textContent; btn.textContent = 'Envoi en cours…'; btn.disabled = true; }
+      else { btn.textContent = btn.dataset.label || btn.textContent; btn.disabled = false; }
+    }
+
     // Rappel rapide
     document.querySelectorAll('form.callback-form').forEach(function (f) {
-      if (!f.hasAttribute('data-preview')) { f.addEventListener('submit', function () { if (f.checkValidity()) track('lead_rappel'); }); return; }
+      var errEl = document.createElement('p');
+      errEl.className = 'callback-error'; errEl.setAttribute('role', 'alert'); errEl.hidden = true;
+      errEl.style.cssText = 'margin:.5rem 0 0;font-weight:600;color:#b42318';
+      f.querySelector('.callback-done').before(errEl);
       f.addEventListener('submit', function (ev) {
         ev.preventDefault();
         if (!f.reportValidity()) return;
-        track('lead_rappel');
-        f.querySelectorAll('.field, button').forEach(function (el) { el.hidden = true; });
-        f.querySelector('.callback-done').hidden = false;
+        var btn = f.querySelector('button[type=submit]');
+        errEl.hidden = true; busy(btn, true);
+        send(f).then(function (res) {
+          busy(btn, false);
+          if (!res.ok) { errEl.textContent = res.error || SEND_FAIL; errEl.hidden = false; return; }
+          track('lead_rappel');
+          f.querySelectorAll('.field, button').forEach(function (el) { el.hidden = true; });
+          f.querySelector('.callback-done').hidden = false;
+        });
       });
     });
 
@@ -132,15 +154,21 @@
     });
 
     form.addEventListener('submit', function (ev) {
+      ev.preventDefault();
       for (var i = 0; i < panes.length; i++) {
-        if (!paneValid(panes[i])) { ev.preventDefault(); show(i); fail('Il manque une information à cette étape.'); return; }
+        if (!paneValid(panes[i])) { show(i); fail('Il manque une information à cette étape.'); return; }
       }
-      track('lead_devis', { service: (form.querySelector('input[name=service]:checked') || {}).value, type_client: (form.querySelector('input[name=type_client]:checked') || {}).value });
-      if (form.hasAttribute('data-preview')) {
-        ev.preventDefault();
+      var photo = document.getElementById('f-photo');
+      if (photo && photo.files[0] && photo.files[0].size > 8 * 1024 * 1024) { fail('La photo dépasse 8 Mo : choisissez une image plus légère, ou retirez-la.'); return; }
+      err.hidden = true; busy(submit, true); prev.disabled = true;
+      send(form).then(function (res) {
+        busy(submit, false); prev.disabled = false;
+        if (!res.ok) { fail(res.error || SEND_FAIL); return; }
+        track('lead_devis', { service: (form.querySelector('input[name=service]:checked') || {}).value, type_client: (form.querySelector('input[name=type_client]:checked') || {}).value });
         form.hidden = true;
         document.getElementById('quote-done').hidden = false;
-      }
+        setTimeout(function () { location.href = 'merci.html'; }, 400);
+      });
     });
     show(cur);
   });

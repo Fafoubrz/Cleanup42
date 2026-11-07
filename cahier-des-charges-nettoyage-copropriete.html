@@ -79,7 +79,7 @@
 <section class="cta"><div class="wrap"><div class="cta-box"><div class="bubbles" aria-hidden="true"></div>
 <div class="cta-main"><p class="kicker kicker-light">Prochaine étape</p><h2>Planifiez une visite gratuite de vos locaux</h2><p>Devis détaillé sous 24 h, sans engagement. Particuliers : envoyez une photo, on vous répond avec un prix.</p>
 <div class="btn-row"><a class="btn btn-white" href="demande-de-devis.html">Demander un devis</a><a class="btn btn-outline-light" href="tel:+33756881072" data-track="click_tel">07 56 88 10 72</a></div></div>
-<form class="callback-form cta-call" name="rappel" method="POST" data-preview="1">
+<form class="callback-form cta-call" name="rappel" method="POST" action="envoi.php">
 <input type="hidden" name="form-name" value="rappel">
 <p class="cta-call-h">Ou on vous rappelle</p>
 <p class="hp"><label for="cb-hp">Ne pas remplir</label><input id="cb-hp" name="societe-web" type="text" tabindex="-1" autocomplete="off"></p>
@@ -87,7 +87,7 @@
 <div class="field"><label for="cb-tel">Téléphone</label><input id="cb-tel" name="telephone" type="tel" autocomplete="tel" required></div>
 <button class="btn btn-primary btn-block" type="submit">Être rappelé</button>
 <p class="cta-call-foot">On vous rappelle dans l&#x27;heure en journée.</p>
-<p class="callback-done" hidden>Merci, c'est noté. Sur le site en ligne, la demande arrive directement à CleanUp42.</p>
+<p class="callback-done" role="status" hidden>Merci, c'est noté. On vous rappelle très vite.</p>
 </form>
 </div></div></section></main><footer class="site-foot"><div class="wrap">
 <div class="foot-grid">

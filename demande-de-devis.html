@@ -40,7 +40,7 @@
 <div class="section-head"><span class="eyebrow">Gratuit et sans engagement</span><h1>Demande de devis</h1><p class="muted">4 étapes rapides. Nous revenons vers vous sous 24 h avec un prix ou pour fixer une visite gratuite.</p></div>
 <div class="form-grid">
 <div>
-<form class="quote steps-form" id="quote-form" name="devis" method="POST" data-preview="1" novalidate>
+<form class="quote steps-form" id="quote-form" name="devis" method="POST" action="envoi.php" enctype="multipart/form-data" novalidate>
 <input type="hidden" name="form-name" value="devis">
 <p class="hp"><label for="f-hp">Ne pas remplir</label><input id="f-hp" name="societe-web" type="text" tabindex="-1" autocomplete="off"></p>
 <ol class="progress" aria-hidden="true"><li class="on">Prestation</li><li>Besoin</li><li>Vous</li><li>Contact</li></ol>
@@ -76,7 +76,7 @@
 <p class="step-error" id="step-error" hidden></p>
 <div class="step-nav"><button class="btn btn-ghost" type="button" id="step-prev" hidden>Retour</button><button class="btn btn-primary" type="button" id="step-next" hidden>Continuer</button><button class="btn btn-primary" type="submit" id="step-submit">Envoyer ma demande</button></div>
 </form>
-<div class="done" id="quote-done" hidden><h2 style="font-size:1.4rem">Demande prête</h2><p>Ceci est l'aperçu du site : sur la version en ligne, la demande est envoyée à contact@cleanup42.com et vous êtes recontacté sous 24 h.</p></div>
+<div class="done" id="quote-done" hidden><h2 style="font-size:1.4rem">Demande envoyée</h2><p>Merci, votre demande est bien partie. Nous vous recontactons sous 24 h.</p></div>
 </div>
 <aside class="aside-box"><dl>
 <div><dt>Téléphone</dt><dd>07 56 88 10 72</dd></div>
