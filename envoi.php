@@ -31,9 +31,6 @@ const SERVICES = [
     'nettoyage-sieges-bureau-saint-etienne'   => 'Sièges et textiles pros',
     'nettoyage-exterieur-saint-etienne'       => 'Extérieurs : terrasse, façade, toiture',
     'nettoyage-diogene-saint-etienne'         => 'Logement encombré (Diogène)',
-    'nettoyage-canape-saint-etienne'          => 'Canapés',
-    'nettoyage-matelas-saint-etienne'         => 'Matelas',
-    'nettoyage-tapis-saint-etienne'           => 'Tapis et moquettes',
     'autre'                                   => 'Autre demande',
 ];
 

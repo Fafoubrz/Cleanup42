@@ -799,3 +799,16 @@ html.js .reveal:not(.in) .kicker::before { width: 0; }
 .tldr b { display: inline-block; margin-right: 8px; font-size: .74rem; letter-spacing: .1em; text-transform: uppercase; color: var(--blue); }
 .crumbs .upd { float: right; color: var(--muted); font-size: .82rem; }
 @media (max-width: 620px) { .crumbs .upd { float: none; display: block; margin-top: 4px; } }
+
+/* ===== Recentrage pro (novembre 2026) ===== */
+/* Photo d'équipe (paysage d'équipe en 4:5) : plus grande que l'ancien portrait */
+.person { grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); }
+.person-photo { max-width: 420px; width: 100%; }
+.person-img { object-position: center 35%; }
+/* Avis : la note Google seule, section plus resserrée */
+.reviews:has(.rv-intro) { padding-block: clamp(40px, 6vw, 72px); }
+.rv-intro { margin: 14px 0 0; max-width: 62ch; }
+@media (max-width: 980px) {
+  .person { grid-template-columns: minmax(0, 1fr); }
+  .person-photo { max-width: 460px; }
+}
