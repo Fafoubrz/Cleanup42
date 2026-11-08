@@ -1,0 +1,19 @@
+# Enregistrements DNS de cleanup42.com chez Wix, relevés le 07/11/2026 avant le transfert vers Hostinger.
+# À recréer dans la zone DNS Hostinger (sauf le site : A/www pointeront vers Hostinger).
+
+# Site Wix (à remplacer par l'hébergement Hostinger)
+@     A      185.230.63.186 / 185.230.63.171 / 185.230.63.107
+www   CNAME  cdn3.wixdns.net.
+
+# Messagerie Google Workspace (à garder tel quel)
+@     MX 10  aspmx.l.google.com.
+@     MX 20  alt1.aspmx.l.google.com.
+@     MX 30  alt2.aspmx.l.google.com.
+@     MX 40  alt3.aspmx.l.google.com.
+@     MX 50  alt4.aspmx.l.google.com.
+@     TXT    "v=spf1 include:_spf.google.com ~all"
+@     TXT    "google-site-verification=c63t1INgJ-8WXYJaLwupYg3T31nAhWgERwITuXYUwN0"
+
+# Mal placés chez Wix (à la racine au lieu de leur sous-domaine) : à recréer au bon endroit
+@     TXT    "v=DMARC1; p=none; rua=mailto:contact@cleanup42.com"     -> _dmarc
+@     TXT    "v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzN8Uny0qSz0lo4oA62oCBrnYk+fF7c0KUkT12oFXXGeAF4brv7QuL+XvKGfWF81fLCH2NYbf9oW9enCFmKugGrFDZ9SqsWqhtIwNzmnlJml+94povUzRS/Ob5ou1Utbxs1zLMQELoEmHNE2lrZKqNpVKX7lm5yHQMnFsDJ1+u4oxMyVFjX8Im5gPfMlYXqYU4qVIABgmRLYDeVRWQVb1wRfTtnR8o2L8X0U0GcBDzeqQAcHh04caSFCxRv+JkHwaaP009ykrEzw1ZihoNkOdZQo31oRFHTWxUzjHGxUWyJa/SnFkfqhHSaeC8Q+Z3KB8K1r6WxkCMLJQSSOYw3KlOwIDAQAB"   -> google._domainkey
