@@ -61,7 +61,7 @@
       if (k < 1) raf = requestAnimationFrame(step); else shown = target;
     })(t0);
   }
-  function setCta(slug, surface) { $('sim-cta').setAttribute('href', 'demande-de-devis.html?service=' + slug + '&surface=' + surface); }
+  function setCta(slug, surface) { $('sim-cta').setAttribute('href', '/demande-de-devis?service=' + slug + '&surface=' + surface); }
   root.addEventListener('input', update);
   root.addEventListener('change', update);
   var pre = root.getAttribute('data-kind');

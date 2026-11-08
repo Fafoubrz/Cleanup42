@@ -26,7 +26,7 @@
 *, *::before, *::after { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
 body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 1.0625rem; line-height: 1.6; }
-img { max-width: 100%; display: block; }
+img { max-width: 100%; height: auto; display: block; }
 a { color: var(--blue); text-underline-offset: 3px; }
 :focus-visible { outline: 3px solid var(--sky); outline-offset: 2px; border-radius: 4px; }
 h1, h2, h3 { font-family: var(--f-display); font-weight: 800; line-height: 1.05; letter-spacing: -0.035em; text-wrap: balance; margin: 0; }
@@ -510,6 +510,7 @@ input[type="text"], input[type="tel"], input[type="email"], input[type="date"], 
 .cta .cta-call .btn-primary { background: var(--blue); color: #fff; }
 .cta .cta-call .btn-primary:hover { background: #1846bd; }
 picture { display: contents; }
+picture > source { display: none; } /* sinon les <source> prennent une case dans les grilles */
 .eyebrow::before { content: ""; width: 22px; height: 2px; border-radius: 2px; background: currentColor; }
 .post .eyebrow::before, .tag::before { content: none; }
 .h-sm { font-size: 1.35rem; margin-bottom: 14px; }
@@ -705,9 +706,11 @@ html.js .reveal.in { opacity: 1; transform: none; }
 html.js main img.hero-bg { transform: none; }
 @keyframes kenburns { from { transform: scale(1.14); } to { transform: scale(1.02); } }
 .hero-wipe { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: rgba(214, 224, 240, .38); -webkit-backdrop-filter: blur(9px) grayscale(.7) contrast(.85) brightness(1.06); backdrop-filter: blur(9px) grayscale(.7) contrast(.85) brightness(1.06); clip-path: inset(0 0 0 0); animation: wipe 1.5s .35s cubic-bezier(.65, 0, .35, 1) forwards; }
-.squeegee { position: absolute; top: -5%; bottom: -5%; left: 0; width: 7px; z-index: 2; pointer-events: none; background: linear-gradient(180deg, transparent, #fff 12%, #fff 88%, transparent); box-shadow: 0 0 24px 6px rgba(255, 255, 255, .55), 0 0 60px 18px rgba(143, 180, 255, .35); border-radius: 4px; transform: rotate(4deg); opacity: 0; animation: squeegee 1.5s .35s cubic-bezier(.65, 0, .35, 1) forwards; }
+/* La raclette glisse avec transform (et non left) : aucun décalage de mise en page (CLS) */
+.squeegee { position: absolute; top: -5%; bottom: -5%; left: 0; width: 100%; z-index: 2; pointer-events: none; opacity: 0; transform: translateX(-2%); will-change: transform; animation: squeegee 1.5s .35s cubic-bezier(.65, 0, .35, 1) forwards; }
+.squeegee::before { content: ""; position: absolute; top: 0; bottom: 0; left: 0; width: 7px; background: linear-gradient(180deg, transparent, #fff 12%, #fff 88%, transparent); box-shadow: 0 0 24px 6px rgba(255, 255, 255, .55), 0 0 60px 18px rgba(143, 180, 255, .35); border-radius: 4px; transform: rotate(4deg); }
 @keyframes wipe { to { clip-path: inset(0 0 0 100%); } }
-@keyframes squeegee { 0% { left: -2%; opacity: 1; } 92% { opacity: 1; } 100% { left: 101%; opacity: 0; } }
+@keyframes squeegee { 0% { transform: translateX(-2%); opacity: 1; } 92% { opacity: 1; } 100% { transform: translateX(101%); opacity: 0; } }
 .hero-x-in, .ticker { z-index: 3; }
 
 /* Titre : les lignes montent une à une */

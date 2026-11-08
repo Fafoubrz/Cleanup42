@@ -2,12 +2,12 @@
 /**
  * Envoi des formulaires du site CleanUp42 par e-mail.
  *
- * Reçoit les formulaires « devis » (demande-de-devis.html) et « rappel »
+ * Reçoit les formulaires « devis » (/demande-de-devis) et « rappel »
  * (bloc « On vous rappelle » en bas des pages), envoie la demande par e-mail
  * et en garde une copie dans un fichier CSV hors du dossier public.
  *
  * Appel JavaScript (en-tête X-Requested-With: fetch) : réponse JSON {ok: bool}.
- * Sans JavaScript : redirection vers merci.html, ou page d'erreur simple.
+ * Sans JavaScript : redirection vers /merci, ou page d'erreur simple.
  */
 declare(strict_types=1);
 
@@ -47,7 +47,7 @@ function repondre(bool $ok, string $erreur = '', int $code = 200): void
         header('Content-Type: application/json; charset=utf-8');
         echo json_encode($ok ? ['ok' => true] : ['ok' => false, 'error' => $erreur], JSON_UNESCAPED_UNICODE);
     } elseif ($ok) {
-        header('Location: merci.html', true, 303);
+        header('Location: /merci', true, 303);
     } else {
         header('Content-Type: text/html; charset=utf-8');
         $msg = htmlspecialchars($erreur, ENT_QUOTES, 'UTF-8');

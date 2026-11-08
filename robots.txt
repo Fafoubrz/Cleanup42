@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /envoi.php
+
+Sitemap: https://www.cleanup42.com/sitemap.xml

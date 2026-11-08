@@ -167,7 +167,7 @@
         track('lead_devis', { service: (form.querySelector('input[name=service]:checked') || {}).value, type_client: (form.querySelector('input[name=type_client]:checked') || {}).value });
         form.hidden = true;
         document.getElementById('quote-done').hidden = false;
-        setTimeout(function () { location.href = 'merci.html'; }, 400);
+        setTimeout(function () { location.href = '/merci'; }, 400);
       });
     });
     show(cur);
