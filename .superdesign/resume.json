@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "projectId": "7253bb46-16b9-499c-a11e-21c131ad3826",
+  "canvas": "https://superdesign.dev/teams/5c08d9a2-7c49-4400-a58a-6e170c1aafd2/projects/7253bb46-16b9-499c-a11e-21c131ad3826",
+  "brandAssets": {
+    "logo": {
+      "assetKey": "brand-cleanup42-logo.svg",
+      "url": "https://vgbujcuwptvheqijyjbe.supabase.co/storage/v1/object/public/hmac-uploads/projects/7253bb46-16b9-499c-a11e-21c131ad3826/brand-assets/brand-cleanup42-logo.svg/cleanup42-logo.svg",
+      "source": "index.html header SVG"
+    }
+  },
+  "targets": {
+    "/": {
+      "source": "index.html",
+      "baselineDraftId": "a4cf00d0-75c2-43de-9bc0-a9f0b7dc65fe",
+      "activeDraftId": "a4cf00d0-75c2-43de-9bc0-a9f0b7dc65fe",
+      "model": "gemini-3.1-pro",
+      "device": "desktop",
+      "branches": [
+        {
+          "draftId": "aa718dd6-59c4-47d4-868c-ac5a2ce2c619",
+          "description": "Direction 1 — Conversion maximale"
+        },
+        {
+          "draftId": "3342137a-4a71-4a57-ae5b-c4a05dcc6d33",
+          "description": "Direction 2 — Premium éditorial"
+        },
+        {
+          "draftId": "a7f84eca-7206-4b40-b003-bbd860232505",
+          "description": "Direction 3 — Confiance B2B"
+        }
+      ],
+      "components": [],
+      "contextFiles": [
+        ".superdesign/design-system.md",
+        ".superdesign/tmp/home-render.html",
+        ".superdesign/tmp/style-part1.css",
+        ".superdesign/tmp/style-part2.css"
+      ],
+      "fingerprints": {
+        ".superdesign/design-system.md": "0428fbeb80573e6d96955ee4c4f38b2548728d458406c64aed67d65d31616ed5",
+        ".superdesign/tmp/home-render.html": "b2f2297ba2ef26560f692205d4f45889d3db1ccf0bfa63c41e96fd0037e29044",
+        ".superdesign/tmp/style-part1.css": "00ef092b1ee993b8c29eedcfeba5e721fd0102446a00028bcb82d48673667ff3",
+        ".superdesign/tmp/style-part2.css": "df61d1df676e903159c1e57550bd7367892d3798e596fc7e55ebd3946b774bae",
+        "index.html": "c86e485b67a4090d6bb8381447bcc7cd88bc7be7b81b64636ac1070faf921743",
+        "style.css": "e183899b34ebc40a7509a34e287a98098b8bb7ef9a7f9f53c1599b8612785322"
+      }
+    }
+  }
+}
