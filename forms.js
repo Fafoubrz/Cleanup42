@@ -89,37 +89,73 @@
       });
     });
 
-    // Devis : formulaire court
+    // Devis en étapes
     var form = document.getElementById('quote-form');
     if (!form) return;
-    var submit = document.getElementById('step-submit');
+    var panes = Array.prototype.slice.call(form.querySelectorAll('.step-pane'));
+    var dots = form.querySelectorAll('.progress li');
+    var prev = document.getElementById('step-prev'), next = document.getElementById('step-next'), submit = document.getElementById('step-submit');
     var err = document.getElementById('step-error');
-    var sel = document.getElementById('f-service');
+    var cur = 0;
+    form.classList.add('js');
 
     // Pré-remplissage depuis l'accueil ou une page service
     var svc = qs.get('service');
-    if (svc && sel && sel.querySelector('option[value="' + svc.replace(/[^a-z0-9-]/g, '') + '"]')) sel.value = svc;
+    if (svc) { var r = form.querySelector('input[name="service"][value="' + svc + '"]'); if (r) r.checked = true; }
     var vi = qs.get('ville');
     if (vi) { var v = document.getElementById('f-ville'); if (v) v.value = vi.slice(0, 80); }
 
+    function paneValid(p) {
+      var ok = true, names = {};
+      p.querySelectorAll('input, textarea, select').forEach(function (el) {
+        if (el.closest('[hidden]')) return;
+        if (el.type === 'radio') {
+          if (names[el.name] !== undefined) return;
+          var group = p.querySelectorAll('input[name="' + el.name + '"]');
+          var needed = Array.prototype.some.call(group, function (g) { return g.required; });
+          var picked = Array.prototype.some.call(group, function (g) { return g.checked; });
+          names[el.name] = true;
+          if (needed && !picked) ok = false;
+        } else if (!el.checkValidity()) ok = false;
+      });
+      return ok;
+    }
+    function show(i) {
+      cur = i;
+      panes.forEach(function (p, k) { p.hidden = k !== i; });
+      dots.forEach(function (d, k) { d.className = k < i ? 'done' : (k === i ? 'on' : ''); });
+      prev.hidden = i === 0;
+      next.hidden = i === panes.length - 1;
+      submit.hidden = i !== panes.length - 1;
+      err.hidden = true;
+    }
     function fail(msg) { err.textContent = msg; err.hidden = false; }
+    next.addEventListener('click', function () {
+      if (!paneValid(panes[cur])) { fail('Choisissez une prestation, votre profil, la fréquence et la ville pour continuer.'); return; }
+      show(cur + 1);
+      var first = panes[cur].querySelector('input:not([type=hidden]), textarea');
+      if (first && first.type !== 'radio') first.focus();
+    });
+    prev.addEventListener('click', function () { show(cur - 1); });
+    form.addEventListener('change', function () { if (!err.hidden && paneValid(panes[cur])) err.hidden = true; });
 
     form.addEventListener('submit', function (ev) {
       ev.preventDefault();
-      var bad = form.querySelector(':invalid');
-      if (bad) { fail('Il manque une information : vérifiez les champs signalés.'); bad.focus(); form.reportValidity && form.reportValidity(); return; }
+      for (var i = 0; i < panes.length; i++) {
+        if (!paneValid(panes[i])) { show(i); fail('Il manque une information à cette étape.'); return; }
+      }
       var photo = document.getElementById('f-photo');
       if (photo && photo.files[0] && photo.files[0].size > 8 * 1024 * 1024) { fail('La photo dépasse 8 Mo : choisissez une image plus légère, ou retirez-la.'); return; }
-      err.hidden = true; busy(submit, true);
+      err.hidden = true; busy(submit, true); prev.disabled = true;
       send(form).then(function (res) {
-        busy(submit, false);
+        busy(submit, false); prev.disabled = false;
         if (!res.ok) { fail(res.error || SEND_FAIL); return; }
-        track('lead_devis', { service: sel ? sel.value : '' });
+        track('lead_devis', { service: (form.querySelector('input[name=service]:checked') || {}).value, type_client: (form.querySelector('input[name=type_client]:checked') || {}).value });
         form.hidden = true;
-        var done = document.getElementById('quote-done');
-        if (done) done.hidden = false;
+        document.getElementById('quote-done').hidden = false;
         setTimeout(function () { location.href = '/merci'; }, 400);
       });
     });
+    show(cur);
   });
 })();
