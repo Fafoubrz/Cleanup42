@@ -988,3 +988,13 @@ h1, h2, h3, h4 { letter-spacing: -0.025em; color: var(--ink); }
 .mm-actions { display: grid; gap: 10px; margin-top: 24px; }
 .mm-actions .btn { width: 100%; }
 .menu-panel { background: var(--bg); }
+
+/* ===== Devis : formulaire court ===== */
+form.quote-simple { gap: 16px; }
+.quote-simple .field select { appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%2313233f' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; padding-right: 40px; }
+.quote-simple .btn-block { width: 100%; justify-content: center; min-height: 54px; font-size: 1.05rem; }
+.quote-foot { margin: -6px 0 0; text-align: center; font-size: .88rem; color: var(--muted); }
+.quote-simple input[type=file] { font-size: .9rem; color: var(--muted); }
+.quote-simple textarea { min-height: 96px; }
+.quote-simple input[type=file] { background: none; border: 0; padding: 0; height: auto; }
+.quote-simple input[type=file]::file-selector-button { font: inherit; font-weight: 600; color: var(--ink); background: var(--sky-soft); border: 1px solid var(--line); border-radius: 999px; padding: 9px 16px; margin-right: 12px; cursor: pointer; }
