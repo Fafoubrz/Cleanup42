@@ -11,6 +11,8 @@ RewriteRule ^(.*)$ https://www.cleanup42.com/$1 [R=301,L]
 
 # Services particuliers retirés (novembre 2026) -> textiles professionnels
 RewriteRule ^nettoyage-(canape|matelas|tapis)-saint-etienne(\.html)?/?$ /nettoyage-sieges-bureau-saint-etienne [R=301,L]
+# Article sur les prix retiré -> page Bureaux
+RewriteRule ^prix-nettoyage-bureaux-saint-etienne(\.html)?/?$ /nettoyage-bureaux-saint-etienne [R=301,L]
 # Page réalisations retirée -> accueil
 RewriteRule ^realisations(\.html)?/?$ / [R=301,L]
 
