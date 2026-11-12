@@ -13,7 +13,7 @@
     "/": {
       "source": "index.html",
       "baselineDraftId": "a4cf00d0-75c2-43de-9bc0-a9f0b7dc65fe",
-      "activeDraftId": "a4cf00d0-75c2-43de-9bc0-a9f0b7dc65fe",
+      "activeDraftId": "a7f84eca-7206-4b40-b003-bbd860232505",
       "model": "gemini-3.1-pro",
       "device": "desktop",
       "branches": [
@@ -44,6 +44,11 @@
         ".superdesign/tmp/style-part2.css": "df61d1df676e903159c1e57550bd7367892d3798e596fc7e55ebd3946b774bae",
         "index.html": "c86e485b67a4090d6bb8381447bcc7cd88bc7be7b81b64636ac1070faf921743",
         "style.css": "e183899b34ebc40a7509a34e287a98098b8bb7ef9a7f9f53c1599b8612785322"
+      },
+      "selected": {
+        "draftId": "a7f84eca-7206-4b40-b003-bbd860232505",
+        "description": "Direction 3 épurée, fond crème #F6F1E7, 6 sections, services en avant",
+        "currentVersion": 4
       }
     }
   }
