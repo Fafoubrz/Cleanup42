@@ -101,7 +101,7 @@
 
     // Pré-remplissage depuis l'accueil ou une page service
     var svc = qs.get('service');
-    if (svc) { var r = form.querySelector('input[name="service"][value="' + svc + '"]'); if (r) r.checked = true; }
+    if (svc) { var r = form.querySelector('input[name="service"][value="' + svc + '"]'); if (r) { r.checked = true; cur = 1; } }
     var vi = qs.get('ville');
     if (vi) { var v = document.getElementById('f-ville'); if (v) v.value = vi.slice(0, 80); }
 
@@ -131,12 +131,16 @@
     }
     function fail(msg) { err.textContent = msg; err.hidden = false; }
     next.addEventListener('click', function () {
-      if (!paneValid(panes[cur])) { fail('Choisissez une prestation, votre profil, la fréquence et la ville pour continuer.'); return; }
+      if (!paneValid(panes[cur])) { fail('Choisissez une prestation pour continuer.'); return; }
       show(cur + 1);
       var first = panes[cur].querySelector('input:not([type=hidden]), textarea');
       if (first && first.type !== 'radio') first.focus();
     });
     prev.addEventListener('click', function () { show(cur - 1); });
+    // Choisir une carte fait passer aux coordonnées
+    form.querySelectorAll('input[name="service"]').forEach(function (r) {
+      r.addEventListener('change', function () { if (cur === 0) setTimeout(function () { show(1); }, 150); });
+    });
     form.addEventListener('change', function () { if (!err.hidden && paneValid(panes[cur])) err.hidden = true; });
 
     form.addEventListener('submit', function (ev) {
@@ -150,7 +154,7 @@
       send(form).then(function (res) {
         busy(submit, false); prev.disabled = false;
         if (!res.ok) { fail(res.error || SEND_FAIL); return; }
-        track('lead_devis', { service: (form.querySelector('input[name=service]:checked') || {}).value, type_client: (form.querySelector('input[name=type_client]:checked') || {}).value });
+        track('lead_devis', { service: (form.querySelector('input[name=service]:checked') || {}).value });
         form.hidden = true;
         document.getElementById('quote-done').hidden = false;
         setTimeout(function () { location.href = '/merci'; }, 400);
