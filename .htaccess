@@ -53,5 +53,5 @@ Header always set X-Content-Type-Options "nosniff"
 Header always set Referrer-Policy "strict-origin-when-cross-origin"
 Header always set X-Frame-Options "SAMEORIGIN"
 Header always set Strict-Transport-Security "max-age=31536000"
-Header always set Link "<https://www.cleanup42.com/llms.txt>; rel=\"describedby\"; type=\"text/plain\", <https://www.cleanup42.com/sitemap.xml>; rel=\"sitemap\""
+Header always set Link "<https://www.cleanup42.com/llms.txt>; rel=describedby, <https://www.cleanup42.com/sitemap.xml>; rel=sitemap"
 </IfModule>
