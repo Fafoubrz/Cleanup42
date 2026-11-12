@@ -973,3 +973,18 @@ h1, h2, h3, h4 { letter-spacing: -0.025em; color: var(--ink); }
 }
 @media (prefers-reduced-motion: reduce) { .h-svc, .h-link svg { transition: none; } }
 @media (max-width: 620px) { .kicker, .eyebrow { font-size: .78rem; padding: 6px 12px; } }
+
+/* ---- Menu simplifié (novembre 2026) ---- */
+.mega-simple { left: -18px; }
+.mega-simple .dd { list-style: none; margin: 0; padding: 10px; min-width: 300px; background: var(--card); border: 1px solid var(--line); border-radius: 20px; box-shadow: var(--shadow-soft); display: grid; gap: 2px; }
+.mega-simple .dd a { display: block; padding: 10px 14px; border-radius: 12px; color: var(--ink); font-weight: 600; text-decoration: none; white-space: nowrap; }
+.mega-simple .dd a:hover, .mega-simple .dd a:focus-visible { background: var(--sky-soft); color: var(--blue); }
+.menu-simple .mob-h { margin: 4px 0 2px; }
+.mm-list { list-style: none; margin: 0; padding: 0; display: grid; }
+.mm-list a { display: flex; justify-content: space-between; align-items: center; gap: 12px; min-height: 46px; padding: 9px 4px; border-bottom: 1px solid var(--line); color: var(--ink); font-weight: 600; font-size: 1.05rem; text-decoration: none; }
+.mm-list a::after { content: "›"; color: var(--muted); font-size: 1.4rem; line-height: 1; }
+.mm-list a:hover { color: var(--blue); }
+.mm-list-sec { margin-top: 18px; }
+.mm-actions { display: grid; gap: 10px; margin-top: 24px; }
+.mm-actions .btn { width: 100%; }
+.menu-panel { background: var(--bg); }
