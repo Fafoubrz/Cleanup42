@@ -1063,3 +1063,13 @@ form.quote-simple { gap: 16px; }
 .faq summary::after { display: grid; place-items: center; flex: none; width: 30px; height: 30px; border-radius: 50%; background: var(--sky-soft); font-size: 1.2rem; }
 .faq details p { padding: 0 24px 22px; }
 @media (max-width: 600px) { .faq summary { padding: 16px 18px; } .faq details p { padding: 0 18px 18px; } }
+
+/* ===== Bandeau cookies ===== */
+.cc { position: fixed; z-index: 1000; left: 16px; right: 16px; bottom: 16px; margin: 0 auto; max-width: 720px; background: var(--card); border: 1px solid var(--line-strong); border-radius: 20px; box-shadow: 0 18px 50px rgba(19, 35, 63, .18); padding: 18px 20px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: center; }
+.cc p { margin: 0; font-size: .92rem; color: var(--text); line-height: 1.5; }
+.cc p b { color: var(--ink); margin-right: 6px; }
+.cc a { color: var(--blue); }
+.cc-btns { display: flex; gap: 8px; }
+.cc-btn { background: var(--ink); color: #fff; border: 0; padding: 11px 18px; border-radius: 999px; font-weight: 700; font-size: .92rem; cursor: pointer; white-space: nowrap; }
+.cc-btn:hover { background: var(--blue); }
+@media (max-width: 640px) { .cc { grid-template-columns: minmax(0, 1fr); left: 10px; right: 10px; bottom: 10px; } .cc-btns > * { flex: 1; } }

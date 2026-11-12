@@ -44,9 +44,8 @@
     });
 
     var qs = new URLSearchParams(location.search);
-    // Suivi des conversions (Google Tag Manager)
-    window.dataLayer = window.dataLayer || [];
-    function track(ev, extra) { var o = { event: ev }; for (var k in extra || {}) o[k] = extra[k]; window.dataLayer.push(o); }
+    // Suivi des conversions : transmis à tracking.js (seulement après accord du visiteur)
+    function track(ev, extra) { if (window.cuTrack) window.cuTrack(ev, extra || {}); }
     document.addEventListener('click', function (e) {
       var a = e.target.closest('a[href^="tel:"]'); if (a) track('click_tel', { emplacement: a.className || 'lien' });
       var c = e.target.closest('#sim-cta'); if (c) track('sim_devis');
