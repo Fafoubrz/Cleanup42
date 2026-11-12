@@ -908,14 +908,16 @@ h1, h2, h3, h4 { letter-spacing: -0.025em; color: var(--ink); }
 
 .h-services { background: var(--card); border-radius: 48px; margin-inline: clamp(8px, 2vw, 24px); }
 .h-svc-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
-.h-svc { background: var(--bg); border-radius: 32px; padding: 14px 14px 26px; display: grid; gap: 18px; align-content: start; transition: transform .25s, box-shadow .25s; }
+.h-svc { background: var(--bg); border-radius: 32px; padding: 14px 14px 24px; display: grid; gap: 18px; align-content: start; transition: transform .25s, box-shadow .25s; text-decoration: none; color: inherit; }
+.h-svc:focus-visible { outline: 3px solid var(--sky); outline-offset: 3px; }
+.h-svc:hover .h-link svg { transform: translateX(3px); }
 .h-svc:hover { transform: translateY(-4px); box-shadow: var(--shadow-soft); }
 .h-svc-photo { position: relative; }
 .h-svc-photo img { width: 100%; height: auto; aspect-ratio: 16 / 11; object-fit: cover; border-radius: 22px; }
 .h-svc-photo .h-ico { position: absolute; left: 14px; bottom: -22px; width: 52px; height: 52px; background: var(--card); box-shadow: var(--shadow-sm); }
 .h-svc-body { padding: 14px 12px 0; display: grid; gap: 12px; }
 .h-svc-body h3 { font-size: 1.3rem; }
-.h-svc-body > p { font-size: .98rem; margin: 0; }
+.h-svc-body > p { font-size: .98rem; margin: 0; color: var(--text); }
 .h-svc ul { list-style: none; margin: 4px 0 6px; padding: 0; display: grid; }
 .h-svc li { border-top: 1px solid var(--line); }
 .h-svc li a { display: flex; justify-content: space-between; gap: 12px; padding: 11px 0; font-weight: 600; color: var(--ink); font-size: .96rem; text-decoration: none; }
@@ -955,13 +957,14 @@ h1, h2, h3, h4 { letter-spacing: -0.025em; color: var(--ink); }
 
 @media (max-width: 980px) {
   .h-hero-in, .h-team, .h-cta { grid-template-columns: minmax(0, 1fr); }
-  .h-svc-grid { grid-template-columns: minmax(0, 1fr); max-width: 560px; margin-inline: auto; }
+  .h-svc-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .h-why { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .h-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .h-steps::before { display: none; }
 }
 @media (max-width: 620px) {
   .h-quick-row { grid-template-columns: minmax(0, 1fr); }
+  .h-svc-grid { grid-template-columns: minmax(0, 1fr); }
   .h-why { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 16px; padding: 28px 22px; }
   .h-steps { grid-template-columns: minmax(0, 1fr); }
   .h-visual { padding: 16px 0 16px 16px; }
