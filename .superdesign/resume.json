@@ -13,7 +13,7 @@
     "/": {
       "source": "index.html",
       "baselineDraftId": "a4cf00d0-75c2-43de-9bc0-a9f0b7dc65fe",
-      "activeDraftId": "a7f84eca-7206-4b40-b003-bbd860232505",
+      "activeDraftId": "e5dcc229-4257-4ef3-9453-5fa12bbbf14d",
       "model": "gemini-3.1-pro",
       "device": "desktop",
       "branches": [
@@ -28,6 +28,10 @@
         {
           "draftId": "a7f84eca-7206-4b40-b003-bbd860232505",
           "description": "Direction 3 — Confiance B2B"
+        },
+        {
+          "draftId": "e5dcc229-4257-4ef3-9453-5fa12bbbf14d",
+          "description": "Frais et lumineux (conçu à la main, crédits épuisés) — fichier .superdesign/designs/accueil-frais-et-lumineux.html"
         }
       ],
       "components": [],
@@ -46,9 +50,9 @@
         "style.css": "e183899b34ebc40a7509a34e287a98098b8bb7ef9a7f9f53c1599b8612785322"
       },
       "selected": {
-        "draftId": "a7f84eca-7206-4b40-b003-bbd860232505",
-        "description": "Direction 3 épurée, fond crème #F6F1E7, 6 sections, services en avant",
-        "currentVersion": 4
+        "draftId": "e5dcc229-4257-4ef3-9453-5fa12bbbf14d",
+        "description": "Frais et lumineux",
+        "currentVersion": 2
       }
     }
   }
