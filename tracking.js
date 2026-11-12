@@ -6,12 +6,12 @@
  */
 (function () {
   var CFG = {
-    ga4: '',            // ex. 'G-XXXXXXXXXX'  (Google Analytics 4)
-    ads: '',            // ex. 'AW-123456789'  (Google Ads)
+    ga4: 'G-2PK1C37XCM',            // ex. 'G-XXXXXXXXXX'  (Google Analytics 4)
+    ads: 'AW-18393775555',            // ex. 'AW-123456789'  (Google Ads)
     conv: {             // libellés de conversion Google Ads (partie après la barre oblique)
-      lead_devis: '',
-      lead_rappel: '',
-      click_tel: ''
+      lead_devis: '7a1lCIHCorcdEMP76sJE',
+      lead_rappel: 'ypFMCITCorcdEMP76sJE',
+      click_tel: '4HFoCIfCorcdEMP76sJE'
     }
   };
 
