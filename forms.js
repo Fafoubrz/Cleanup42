@@ -57,7 +57,11 @@
     // Envoi d'un formulaire à envoi.php ; réponse JSON { ok, error }
     var SEND_FAIL = "L'envoi n'a pas abouti. Réessayez ou appelez-nous au 07 56 88 10 72.";
     function send(f) {
-      return fetch(f.getAttribute('action') || 'envoi.php', { method: 'POST', body: new FormData(f), headers: { 'X-Requested-With': 'fetch' } })
+      var fd = new FormData(f);
+      // Identifiant du clic Google (seulement si le visiteur a accepté les cookies) : sert à l'import des contrats signés
+      var clic = window.cuClickId && window.cuClickId();
+      if (clic) fd.append(clic.k, clic.v);
+      return fetch(f.getAttribute('action') || 'envoi.php', { method: 'POST', body: fd, headers: { 'X-Requested-With': 'fetch' } })
         .then(function (r) { return r.json().catch(function () { return { ok: false }; }); })
         .catch(function () { return { ok: false }; });
     }
@@ -81,7 +85,7 @@
         send(f).then(function (res) {
           busy(btn, false);
           if (!res.ok) { errEl.textContent = res.error || SEND_FAIL; errEl.hidden = false; return; }
-          track('lead_rappel');
+          track('lead_rappel', { _tel: (f.querySelector('[name=telephone]') || {}).value });
           f.querySelectorAll('.field, button').forEach(function (el) { el.hidden = true; });
           f.querySelector('.callback-done').hidden = false;
         });
@@ -153,7 +157,7 @@
       send(form).then(function (res) {
         busy(submit, false); prev.disabled = false;
         if (!res.ok) { fail(res.error || SEND_FAIL); return; }
-        track('lead_devis', { service: (form.querySelector('input[name=service]:checked') || {}).value });
+        track('lead_devis', { service: (form.querySelector('input[name=service]:checked') || {}).value, _email: (form.querySelector('[name=email]') || {}).value, _tel: (form.querySelector('[name=telephone]') || {}).value });
         form.hidden = true;
         document.getElementById('quote-done').hidden = false;
         setTimeout(function () { location.href = '/merci'; }, 400);
