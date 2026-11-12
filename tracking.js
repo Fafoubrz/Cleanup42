@@ -33,7 +33,8 @@
     if (loaded) return; loaded = true;
     gtag('consent', 'update', { ad_storage: 'granted', analytics_storage: 'granted', ad_user_data: 'granted', ad_personalization: 'granted' });
     var s = document.createElement('script'); s.async = true;
-    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + (CFG.ga4 || CFG.ads);
+    // Chargé avec l'identifiant Google Ads : la balise Google combinée (Ads + Analytics) répond à cet identifiant
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + (CFG.ads || CFG.ga4);
     document.head.appendChild(s);
     gtag('js', new Date());
     if (CFG.ga4) gtag('config', CFG.ga4);
