@@ -1164,3 +1164,7 @@ section:has(> .wrap.v-stack), section:has(> .wrap.v-split) { padding-block: clam
 .v-duo p { margin: 0; color: var(--text); line-height: 1.6; }
 @media (max-width: 760px) { .v-duo { grid-template-columns: minmax(0, 1fr); } }
 @media (max-width: 600px) { .v-freq-text { grid-template-columns: minmax(0, 1fr); } }
+
+/* ===== Haut des pages services : photo au format des images ===== */
+.aside-photo { aspect-ratio: 3 / 2; box-shadow: var(--shadow-soft); }
+@media (max-width: 860px) { .aside-photo { aspect-ratio: 3 / 2; } }
