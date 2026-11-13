@@ -1148,3 +1148,19 @@ section:has(> .wrap.v-stack), section:has(> .wrap.v-split) { padding-block: clam
   .v-head-gap { margin-top: 24px; }
 }
 .flow.v-steps li { align-content: start; }
+
+/* ===== Blocs visuels : variantes des pages services ===== */
+.v-grid li.v-solo { align-content: start; }
+.v-grid li.v-solo b { font-family: inherit; font-size: 1rem; font-weight: 600; line-height: 1.45; letter-spacing: 0; color: var(--ink); }
+.v-points li > div > .v-h2s { font-size: 1.15rem; margin: 0 0 6px; line-height: 1.3; }
+.v-points li > div > p { margin: 0; color: var(--text); font-size: .97rem; line-height: 1.55; }
+.v-freq-text { grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
+.v-freq-text li { gap: 10px; }
+.v-freq-text b { margin-top: 4px; }
+.v-freq-text .v-big-s { font-family: var(--f-display); font-weight: 700; font-size: 1.12rem; color: var(--blue); line-height: 1.3; letter-spacing: -0.01em; }
+.v-duo { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.v-duo li { background: var(--card); border: 1px solid var(--line); border-radius: 22px; padding: clamp(20px, 3vw, 30px); display: grid; gap: 12px; align-content: start; }
+.v-duo .v-h2s { font-size: 1.3rem; margin: 4px 0 0; line-height: 1.25; }
+.v-duo p { margin: 0; color: var(--text); line-height: 1.6; }
+@media (max-width: 760px) { .v-duo { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 600px) { .v-freq-text { grid-template-columns: minmax(0, 1fr); } }
