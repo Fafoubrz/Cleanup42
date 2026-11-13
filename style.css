@@ -1073,3 +1073,13 @@ form.quote-simple { gap: 16px; }
 .cc-btn { background: var(--ink); color: #fff; border: 0; padding: 11px 18px; border-radius: 999px; font-weight: 700; font-size: .92rem; cursor: pointer; white-space: nowrap; }
 .cc-btn:hover { background: var(--blue); }
 @media (max-width: 640px) { .cc { grid-template-columns: minmax(0, 1fr); left: 10px; right: 10px; bottom: 10px; } .cc-btns > * { flex: 1; } }
+
+/* ===== Mobile : pages d'arrivée Google Ads plus compactes ===== */
+@media (max-width: 600px) {
+  .hero h1 { font-size: 1.95rem; line-height: 1.08; }
+  .hero .hero-copy { gap: 14px; }
+  .crumbs .upd { display: none; }
+  .cc { padding: 12px 14px; gap: 10px; bottom: 8px; left: 8px; right: 8px; border-radius: 16px; }
+  .cc p { font-size: .8rem; line-height: 1.4; }
+  .cc-btn { padding: 9px 12px; font-size: .85rem; }
+}

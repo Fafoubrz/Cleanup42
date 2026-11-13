@@ -94,7 +94,7 @@
     box.className = 'cc';
     box.setAttribute('role', 'dialog');
     box.setAttribute('aria-label', 'Choix des cookies');
-    box.innerHTML = '<p><b>Cookies</b> Avec votre accord, nous utilisons Google Analytics et Google Ads pour mesurer la fréquentation du site et l’efficacité de nos annonces. Rien n’est déposé sans votre accord. <a href="/mentions-legales#cookies">En savoir plus</a></p>' +
+    box.innerHTML = '<p><b>Cookies</b> Avec votre accord, Google Analytics et Google Ads mesurent la fréquentation du site et l’efficacité de nos annonces. <a href="/mentions-legales#cookies">En savoir plus</a></p>' +
       '<div class="cc-btns"><button type="button" class="btn cc-btn" data-cc="no">Tout refuser</button><button type="button" class="btn cc-btn" data-cc="yes">Tout accepter</button></div>';
     box.addEventListener('click', function (e) { var b = e.target.closest('[data-cc]'); if (b) choose(b.getAttribute('data-cc') === 'yes'); });
     document.body.appendChild(box);
