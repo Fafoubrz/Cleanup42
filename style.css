@@ -1132,3 +1132,19 @@ form.quote-simple { gap: 16px; }
   .v-ico-lg { width: 46px; height: 46px; border-radius: 14px; }
   .v-ico-lg svg { width: 24px; height: 24px; }
 }
+
+/* ===== Rythme vertical des blocs visuels ===== */
+section:has(> .wrap.v-stack), section:has(> .wrap.v-split) { padding-block: clamp(56px, 6.5vw, 88px); }
+.v-stack { gap: 32px; }
+.v-head { gap: 14px; }
+.v-head h2 { margin: 0; }
+.v-head-gap { margin-top: 36px; }
+.v-split > div > .kicker + h2 { margin-top: 14px; }
+.v-benefits { margin-top: 28px; }
+@media (max-width: 600px) {
+  section:has(> .wrap.v-stack), section:has(> .wrap.v-split) { padding-block: 48px; }
+  .v-stack { gap: 24px; }
+  .v-head { gap: 12px; }
+  .v-head-gap { margin-top: 24px; }
+}
+.flow.v-steps li { align-content: start; }
