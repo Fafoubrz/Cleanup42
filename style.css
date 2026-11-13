@@ -1168,3 +1168,10 @@ section:has(> .wrap.v-stack), section:has(> .wrap.v-split) { padding-block: clam
 /* ===== Haut des pages services : photo au format des images ===== */
 .aside-photo { aspect-ratio: 3 / 2; box-shadow: var(--shadow-soft); }
 @media (max-width: 860px) { .aside-photo { aspect-ratio: 3 / 2; } }
+
+/* ===== Bandeau cookies : discret, en bas à droite sur ordinateur ===== */
+@media (min-width: 900px) {
+  .cc { left: auto; right: 20px; bottom: 20px; margin: 0; max-width: 400px; grid-template-columns: minmax(0, 1fr); gap: 12px; padding: 16px 18px; }
+  .cc p { font-size: .86rem; }
+  .cc-btns > * { flex: 1; }
+}
