@@ -2,12 +2,12 @@
 /**
  * Envoi des formulaires du site CleanUp42 par e-mail.
  *
- * Reçoit les formulaires « devis » (demande-de-devis.html) et « rappel »
+ * Reçoit les formulaires « devis » (/demande-de-devis) et « rappel »
  * (bloc « On vous rappelle » en bas des pages), envoie la demande par e-mail
  * et en garde une copie dans un fichier CSV hors du dossier public.
  *
  * Appel JavaScript (en-tête X-Requested-With: fetch) : réponse JSON {ok: bool}.
- * Sans JavaScript : redirection vers merci.html, ou page d'erreur simple.
+ * Sans JavaScript : redirection vers /merci, ou page d'erreur simple.
  */
 declare(strict_types=1);
 
@@ -31,9 +31,6 @@ const SERVICES = [
     'nettoyage-sieges-bureau-saint-etienne'   => 'Sièges et textiles pros',
     'nettoyage-exterieur-saint-etienne'       => 'Extérieurs : terrasse, façade, toiture',
     'nettoyage-diogene-saint-etienne'         => 'Logement encombré (Diogène)',
-    'nettoyage-canape-saint-etienne'          => 'Canapés',
-    'nettoyage-matelas-saint-etienne'         => 'Matelas',
-    'nettoyage-tapis-saint-etienne'           => 'Tapis et moquettes',
     'autre'                                   => 'Autre demande',
 ];
 
@@ -47,7 +44,7 @@ function repondre(bool $ok, string $erreur = '', int $code = 200): void
         header('Content-Type: application/json; charset=utf-8');
         echo json_encode($ok ? ['ok' => true] : ['ok' => false, 'error' => $erreur], JSON_UNESCAPED_UNICODE);
     } elseif ($ok) {
-        header('Location: merci.html', true, 303);
+        header('Location: /merci', true, 303);
     } else {
         header('Content-Type: text/html; charset=utf-8');
         $msg = htmlspecialchars($erreur, ENT_QUOTES, 'UTF-8');
@@ -190,6 +187,16 @@ if ($formulaire === 'devis') {
     $sujet = 'Demande de rappel – ' . $nom . ' – ' . $tel;
 }
 
+// ---- Identifiant du clic Google (envoyé seulement si le visiteur a accepté les cookies) ----
+$clic = '';
+foreach (['gclid', 'gbraid', 'wbraid'] as $k) {
+    $v = ligne($k, 200);
+    if ($v !== '' && preg_match('/^[A-Za-z0-9_-]{10,200}$/', $v)) { $clic = $k . '=' . $v; break; }
+}
+if ($clic !== '') {
+    $champs['Clic Google'] = $clic;
+}
+
 // ---- Corps du message -----------------------------------------------------
 $corps = ($formulaire === 'devis' ? "Nouvelle demande de devis depuis le site.\n\n" : "Un visiteur demande à être rappelé.\n\n");
 foreach ($champs as $libelle => $valeur) {
@@ -250,12 +257,12 @@ if ($stockage) {
             fwrite($fh, "\xEF\xBB\xBF"); // BOM : accents corrects dans Excel
             fputcsv($fh, ['Date', 'Formulaire', 'E-mail envoyé', 'Nom', 'Téléphone', 'E-mail', 'Prestation',
                           'Ville', 'Type de client', 'Société', 'Surface', 'Fréquence', 'Délai',
-                          'Date souhaitée', 'Précisions', 'Page'], ';', '"', '');
+                          'Date souhaitée', 'Précisions', 'Page', 'Clic Google'], ';', '"', '');
         }
         $c = fn ($k) => $champs[$k] ?? '';
         $ligneCsv = [date('Y-m-d H:i:s'), $formulaire, $envoye ? 'oui' : 'NON', $nom, $tel, $email,
                      $c('Prestation'), $c('Ville'), $c('Type de client'), $c('Société'), $c('Surface'),
-                     $c('Fréquence'), $c('Délai'), $c('Date souhaitée'), $message, $page];
+                     $c('Fréquence'), $c('Délai'), $c('Date souhaitée'), $message, $page, $clic];
         // Empêche Excel d'interpréter une valeur comme une formule.
         $ligneCsv = array_map(fn ($v) => preg_match('/^[=+\-@\t]/', (string)$v) ? "'" . $v : $v, $ligneCsv);
         fputcsv($fh, $ligneCsv, ';', '"', '');

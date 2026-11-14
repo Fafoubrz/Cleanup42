@@ -44,9 +44,8 @@
     });
 
     var qs = new URLSearchParams(location.search);
-    // Suivi des conversions (Google Tag Manager)
-    window.dataLayer = window.dataLayer || [];
-    function track(ev, extra) { var o = { event: ev }; for (var k in extra || {}) o[k] = extra[k]; window.dataLayer.push(o); }
+    // Suivi des conversions : transmis à tracking.js (seulement après accord du visiteur)
+    function track(ev, extra) { if (window.cuTrack) window.cuTrack(ev, extra || {}); }
     document.addEventListener('click', function (e) {
       var a = e.target.closest('a[href^="tel:"]'); if (a) track('click_tel', { emplacement: a.className || 'lien' });
       var c = e.target.closest('#sim-cta'); if (c) track('sim_devis');
@@ -58,7 +57,11 @@
     // Envoi d'un formulaire à envoi.php ; réponse JSON { ok, error }
     var SEND_FAIL = "L'envoi n'a pas abouti. Réessayez ou appelez-nous au 07 56 88 10 72.";
     function send(f) {
-      return fetch(f.getAttribute('action') || 'envoi.php', { method: 'POST', body: new FormData(f), headers: { 'X-Requested-With': 'fetch' } })
+      var fd = new FormData(f);
+      // Identifiant du clic Google (seulement si le visiteur a accepté les cookies) : sert à l'import des contrats signés
+      var clic = window.cuClickId && window.cuClickId();
+      if (clic) fd.append(clic.k, clic.v);
+      return fetch(f.getAttribute('action') || 'envoi.php', { method: 'POST', body: fd, headers: { 'X-Requested-With': 'fetch' } })
         .then(function (r) { return r.json().catch(function () { return { ok: false }; }); })
         .catch(function () { return { ok: false }; });
     }
@@ -82,7 +85,7 @@
         send(f).then(function (res) {
           busy(btn, false);
           if (!res.ok) { errEl.textContent = res.error || SEND_FAIL; errEl.hidden = false; return; }
-          track('lead_rappel');
+          track('lead_rappel', { _tel: (f.querySelector('[name=telephone]') || {}).value });
           f.querySelectorAll('.field, button').forEach(function (el) { el.hidden = true; });
           f.querySelector('.callback-done').hidden = false;
         });
@@ -99,13 +102,11 @@
     var cur = 0;
     form.classList.add('js');
 
-    // Pré-remplissage depuis le simulateur ou une page service
+    // Pré-remplissage depuis l'accueil ou une page service
     var svc = qs.get('service');
     if (svc) { var r = form.querySelector('input[name="service"][value="' + svc + '"]'); if (r) { r.checked = true; cur = 1; } }
     var vi = qs.get('ville');
     if (vi) { var v = document.getElementById('f-ville'); if (v) v.value = vi.slice(0, 80); }
-    var sf = qs.get('surface');
-    if (sf) { var s = document.getElementById('f-surface'); if (s) s.value = parseInt(sf, 10) || ''; }
 
     function paneValid(p) {
       var ok = true, names = {};
@@ -133,25 +134,17 @@
     }
     function fail(msg) { err.textContent = msg; err.hidden = false; }
     next.addEventListener('click', function () {
-      if (!paneValid(panes[cur])) { fail(cur === 0 ? 'Choisissez une prestation pour continuer.' : 'Complétez les champs de cette étape pour continuer.'); return; }
+      if (!paneValid(panes[cur])) { fail('Choisissez une prestation pour continuer.'); return; }
       show(cur + 1);
       var first = panes[cur].querySelector('input:not([type=hidden]), textarea');
       if (first && first.type !== 'radio') first.focus();
     });
     prev.addEventListener('click', function () { show(cur - 1); });
-
-    // Choisir une carte fait avancer
+    // Choisir une carte fait passer aux coordonnées
     form.querySelectorAll('input[name="service"]').forEach(function (r) {
       r.addEventListener('change', function () { if (cur === 0) setTimeout(function () { show(1); }, 150); });
     });
-    // Date fixe
-    form.querySelectorAll('input[name="delai"]').forEach(function (r) {
-      r.addEventListener('change', function () { document.getElementById('f-date-wrap').hidden = r.value !== 'Date fixe' || !r.checked; });
-    });
-    // Particulier : pas de champ société
-    form.querySelectorAll('input[name="type_client"]').forEach(function (r) {
-      r.addEventListener('change', function () { document.getElementById('f-societe-wrap').hidden = r.value === 'Particulier'; });
-    });
+    form.addEventListener('change', function () { if (!err.hidden && paneValid(panes[cur])) err.hidden = true; });
 
     form.addEventListener('submit', function (ev) {
       ev.preventDefault();
@@ -164,10 +157,10 @@
       send(form).then(function (res) {
         busy(submit, false); prev.disabled = false;
         if (!res.ok) { fail(res.error || SEND_FAIL); return; }
-        track('lead_devis', { service: (form.querySelector('input[name=service]:checked') || {}).value, type_client: (form.querySelector('input[name=type_client]:checked') || {}).value });
+        track('lead_devis', { service: (form.querySelector('input[name=service]:checked') || {}).value, _email: (form.querySelector('[name=email]') || {}).value, _tel: (form.querySelector('[name=telephone]') || {}).value });
         form.hidden = true;
         document.getElementById('quote-done').hidden = false;
-        setTimeout(function () { location.href = 'merci.html'; }, 400);
+        setTimeout(function () { location.href = '/merci'; }, 400);
       });
     });
     show(cur);

@@ -1,0 +1,8 @@
+# Utilisation du contenu : moteurs de recherche, réponses des IA et entraînement autorisés
+# (https://contentsignals.org)
+User-agent: *
+Content-Signal: search=yes, ai-input=yes, ai-train=yes
+Allow: /
+Disallow: /envoi.php
+
+Sitemap: https://www.cleanup42.com/sitemap.xml
