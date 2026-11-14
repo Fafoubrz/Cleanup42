@@ -1180,3 +1180,9 @@ section:has(> .wrap.v-stack), section:has(> .wrap.v-split) { padding-block: clam
 .h-hero-copy h1.h-h1 { display: grid; gap: 22px; justify-items: start; }
 .h-hero-copy h1.h-h1 .kicker { font-family: var(--f-body); font-size: 1.15rem; line-height: 1.3; letter-spacing: 0; }
 .h-h1-main { display: block; }
+
+/* ===== Prix indicatifs (page Toiture, façade et terrasse) ===== */
+.v-prices { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.v-freq.v-prices li > span.v-big-s { font-family: var(--f-display); font-weight: 800; font-size: 1.35rem; color: var(--blue); letter-spacing: -0.01em; }
+@media (max-width: 860px) { .v-prices { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .v-prices { grid-template-columns: minmax(0, 1fr); } }
