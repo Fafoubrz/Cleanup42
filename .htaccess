@@ -17,6 +17,9 @@ RewriteRule ^prix-nettoyage-bureaux-saint-etienne(\.html)?/?$ /nettoyage-bureaux
 RewriteRule ^realisations(\.html)?/?$ / [R=301,L]
 # Roanne n'est plus desservie
 RewriteRule ^nettoyage-(bureaux-)?roanne(\.html)?/?$ /zones-intervention [R=301,L]
+# Adresses de l'ancien site encore connues de Google
+RewriteRule ^projects(-[0-9]+)?/?$ / [R=301,L,NC]
+RewriteRule ^(privacy-policy|terms-and-conditions)/?$ /mentions-legales [R=301,L,NC]
 
 # /index et /index.html -> /
 RewriteCond %{THE_REQUEST} \s/+index(\.html)?[\s?] [NC]
